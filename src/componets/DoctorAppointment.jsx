@@ -48,22 +48,23 @@ const DoctorAppointment = () => {
     }
   };
   const updateHandleSlot = async (id, status) => {
-    try {
-      axios.put(
-        `${import.meta.env.VITE_ROUTES}doctor/appointments/update/${id}`,
-        {
-          doctorId: doctor._id,
-          status: status.toLowerCase(),
-        }
-      );
-      console.log("Sent doctorId:", doctor._id);
-      toast.success("Slot Updated");
-      // setAppointments((prev) => prev.filter((appt) => appt._id !== id));
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to update slot.");
-    }
-  };
+  try {
+    await axios.put(
+      `${import.meta.env.VITE_ROUTES}doctor/appointments/update/${id}`,
+      {
+        doctorId: doctor._id,
+        status: status.toLowerCase(),
+      }
+    );
+    
+    console.log("Sent doctorId:", doctor._id);
+    toast.success("Slot Updated");
+  } catch (err) {
+    console.error("Update Error:", err);
+    toast.error("Failed to update slot.");
+  }
+};
+
 
   const totalSlots = appointments.length;
   const bookedSlots = appointments.filter(

@@ -36,7 +36,7 @@ const DoctorDashboard = () => {
             </button>
 
             <img
-              src={"imageUrl"}
+              src={doctor?.imageUrl}
               alt="Doctor"
               className="w-28 h-28 rounded-full object-cover border-4 border-sky-500"
             />

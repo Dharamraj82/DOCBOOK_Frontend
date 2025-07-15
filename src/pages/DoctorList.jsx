@@ -12,7 +12,9 @@ const DoctorList = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_ROUTES}appointments`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_ROUTES}appointments`
+        );
         setAppointments(res.data.appointments);
       } catch (err) {
         console.error("Error fetching appointments:", err);
@@ -81,7 +83,7 @@ const DoctorList = () => {
                 >
                   <div className="h-64 w-full bg-gray-100">
                     <img
-                      src={"https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D"}
+                      src={doc?.imageUrl}
                       alt={doc.name}
                       className="w-full h-full object-cover"
                     />

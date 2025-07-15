@@ -56,10 +56,10 @@ const DoctorPopUP = () => {
       );
 
       const result = await res.json();
-      console.log(result);
+      const { updatedDoctor } = result;
       
       if (result.success) {
-        docLogin(result.data);
+        docLogin(updatedDoctor);
         toast.success("Profile updated successfully");
         setShowModal(false);
       } else {
