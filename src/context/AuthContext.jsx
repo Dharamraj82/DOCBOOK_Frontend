@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -36,6 +37,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setDoctor(null);
     setPatient(null);
+    toast.error("Logout");
   };
 
   return (

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-
 import {
   FaBars,
   FaTimes,
@@ -18,20 +17,23 @@ import { useTheme } from "../context/ThemeContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
-  const { patient, logout } = useContext(AuthContext);
+  const { doctor, logout } = useContext(AuthContext);
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
     { to: "/", text: "Home", icon: <FaHome /> },
-    { to: "/doctors", text: "Doctors", icon: <FaUserMd /> },
-    { to: "/patient", text: "Appointments", icon: <FaCalendarCheck /> },
+    { to: "/doctors/dashboard", text: "Dashboard", icon: <FaUserMd /> },
     { to: "/about", text: "About", icon: <FaInfoCircle /> },
   ];
 
   return (
     <motion.section
-      className="shadow-lg sticky top-0 z-50 bg-gradient-to-r from-emerald-50 to-sky-50 text-emerald-700"
+      className={`shadow-lg sticky top-0 z-50 ${
+        isDarkMode
+          ? "bg-gradient-to-r from-sky-900 to-sky-800 text-white "
+          : "bg-gradient-to-r from-sky-50 to-sky-100 text-sky-700"
+      }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
@@ -41,21 +43,15 @@ const Navbar = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
               to="/"
-              className="flex items-center"
+              className="text-2xl font-extrabold tracking-wide text-sky-600 flex items-center"
             >
-              <motion.div className="flex items-center">
-               <h2 className="text-3xl font-bold">
-                <span className="bg-gradient-to-r from-emerald-600 to-sky-600 bg-clip-text text-transparent">
-                  DOCBOOK
-                </span>
-              </h2>
-                <motion.div
-                  className="ml-2"
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                >
-                  <FaUserMd className="text-2xl text-transparent bg-gradient-to-r from-emerald-500 via-sky-500 to-emerald-500 bg-clip-text" />
-                </motion.div>
+              DOC<span className="text-sky-400">BOOK</span>
+              <motion.div
+                className="ml-2 text-sky-400"
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              >
+                <FaUserMd />
               </motion.div>
             </Link>
           </motion.div>
@@ -73,7 +69,7 @@ const Navbar = () => {
               >
                 <Link
                   to={item.to}
-                  className="hover:text-sky-600 font-medium flex items-center gap-2 transition-colors"
+                  className="hover:text-sky-500 font-medium flex items-center gap-2"
                 >
                   {item.icon}
                   {item.text}
@@ -92,7 +88,7 @@ const Navbar = () => {
             >
               {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
             </motion.button> */}
-            {patient ? (
+            {doctor ? (
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -109,10 +105,10 @@ const Navbar = () => {
               >
                 <Link
                   to="/join"
-                  className="bg-gradient-to-r from-emerald-500 to-sky-500 text-white px-6 py-2 rounded-full transition flex items-center gap-2 shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-sky-600"
+                  className="bg-gradient-to-r from-sky-500 to-sky-600 text-white px-6 py-2 rounded-full transition flex items-center gap-2 shadow-md hover:shadow-lg"
                 >
                   <FaSignInAlt />
-                  Join Now
+                  Login
                 </Link>
               </motion.div>
             )}
@@ -122,7 +118,7 @@ const Navbar = () => {
           <motion.div className="md:hidden" whileTap={{ scale: 0.9 }}>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-emerald-600 focus:outline-none p-2 rounded-lg hover:bg-gradient-to-r hover:from-emerald-100 hover:to-sky-100 transition-colors"
+              className="text-sky-600 focus:outline-none p-2 rounded-lg hover:bg-sky-200/50"
             >
               {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
             </button>
@@ -138,7 +134,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-gradient-to-b from-emerald-50/80 to-sky-50/80 backdrop-blur-sm shadow-inner overflow-hidden"
+            className="md:hidden bg-gradient-to-b from-sky-50 to-white shadow-inner overflow-hidden"
           >
             <div className="flex flex-col w-full justify-center items-center px-4 text-lg font-medium py-3 space-y-3">
               {menuItems.map((item) => (
@@ -150,7 +146,7 @@ const Navbar = () => {
                 >
                   <Link
                     to={item.to}
-                    className="text-emerald-700 hover:bg-gradient-to-r hover:from-emerald-100/50 hover:to-sky-100/50 w-full p-3 rounded-lg flex items-center gap-3 transition-colors"
+                    className="text-sky-700 hover:bg-sky-100 w-full p-3 rounded-lg flex items-center gap-3 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.icon}
@@ -180,7 +176,7 @@ const Navbar = () => {
                   </>
                 )}
               </motion.button> */}
-              {patient ? (
+              {doctor ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -205,7 +201,7 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                   >
                     <FaSignInAlt />
-                    Join Now
+                    Login
                   </Link>
                 </motion.div>
               )}

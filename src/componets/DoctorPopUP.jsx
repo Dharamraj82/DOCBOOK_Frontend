@@ -57,7 +57,7 @@ const DoctorPopUP = () => {
 
       const result = await res.json();
       const { updatedDoctor } = result;
-      
+
       if (result.success) {
         docLogin(updatedDoctor);
         toast.success("Profile updated successfully");
@@ -74,7 +74,7 @@ const DoctorPopUP = () => {
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-[999]">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[999] px-4">
       <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-lg">
         <h2 className="text-xl font-semibold mb-4 text-gray-700">
           Complete Your Profile
